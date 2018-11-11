@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import menuData from "./Butcher's burger menu-2.json";
+import { PanelGroup, Panel } from 'react-bootstrap';
+
 export default class Menu extends React.Component {
 
     render() {
@@ -7,7 +9,7 @@ export default class Menu extends React.Component {
         let menuItems = this.recursiveRenderChildren(menuData.categories);
         return (
 
-            <ul>{menuItems}</ul>
+            <PanelGroup accordion >{menuItems}</PanelGroup>
 
         );
 
@@ -21,9 +23,16 @@ export default class Menu extends React.Component {
         if (children !== undefined || children > 0) {
             return children.map((child) =>
                 (
-                    <li key={child.id.toString()}>{child.name}
-                        <ul>{that.recursiveRenderChildren(child.items)}</ul>
-                    </li>
+                    <Panel key={child.id.toString()}>
+                    <Panel.Heading><i className="fa fa-times"></i>
+                                        <Panel.Title toggle>{child.name}</Panel.Title>
+                                    </Panel.Heading>
+                        <Panel.Body collapsible>
+                        {child.description}
+                        {child.price}
+                        <PanelGroup accordion >{that.recursiveRenderChildren(child.items)}</PanelGroup>
+                        </Panel.Body>
+                    </Panel>
                 )
             );
 

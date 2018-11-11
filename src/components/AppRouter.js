@@ -4,6 +4,7 @@ import logo from '../images/logo-landing.svg';
 import Menu from './Menu';
 import Login from './Login';
 import AddEditItems from './AddEditItems';
+
 export default class AppRouter extends React.Component {
 
     constructor(props) {
@@ -38,7 +39,7 @@ export default class AppRouter extends React.Component {
                                     <NavLink activeClassName="selected" to="/view/">View Menu</NavLink>
                                 </li>
 
-                                {this.state.email == "admin@admin.admin" ? (
+                                {this.state.email === "admin@admin.admin" ? (
                                     <li>
                                         <NavLink activeClassName="selected" to="/addEdit/">Edit Menu</NavLink>
                                     </li>
