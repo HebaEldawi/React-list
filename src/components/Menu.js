@@ -8,9 +8,10 @@ export default class Menu extends React.Component {
 
         let menuItems = this.recursiveRenderChildren(menuData.categories);
         return (
-
-            <PanelGroup accordion >{menuItems}</PanelGroup>
-
+            <div className="container-fluid">
+                <h3>Butcher's Burger Menu</h3>
+                <PanelGroup accordion id="menuPanel" >{menuItems}</PanelGroup>
+            </div>
         );
 
     }
@@ -23,14 +24,16 @@ export default class Menu extends React.Component {
         if (children !== undefined || children > 0) {
             return children.map((child) =>
                 (
-                    <Panel key={child.id.toString()}>
-                    <Panel.Heading><i className="fa fa-times"></i>
-                                        <Panel.Title toggle>{child.name}</Panel.Title>
-                                    </Panel.Heading>
+                    <Panel key={child.id.toString()} eventKey={child.id.toString()}>
+                        <Panel.Heading><i className="fa fa-times"></i>
+                            <Panel.Title toggle><div><i className="glyphicon glyphicon-align-justify"></i> <h5>{child.name}</h5> <em className="pull-right">{child.price}</em></div></Panel.Title>
+                        </Panel.Heading>
                         <Panel.Body collapsible>
-                        {child.description}
-                        {child.price}
-                        <PanelGroup accordion >{that.recursiveRenderChildren(child.items)}</PanelGroup>
+                            {child.description}
+
+                            <PanelGroup accordion id="subMenuPanel">
+                                {that.recursiveRenderChildren(child.items)}
+                            </PanelGroup>
                         </Panel.Body>
                     </Panel>
                 )

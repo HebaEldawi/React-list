@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 export default class Login extends React.Component {
@@ -24,7 +25,6 @@ export default class Login extends React.Component {
     }
 
     handleSubmit = event => {
-        console.log(this);
         this.props.onUserChange(this.state.email, this.state.password);
         this.props.history.push('/view/');
     }
@@ -35,7 +35,7 @@ export default class Login extends React.Component {
 
 
         return (
-            <div className="Login">
+            <div className="login container">
                 <form onSubmit={this.handleSubmit}>
                     <FormGroup controlId="email" bsSize="large">
                         <ControlLabel>Email</ControlLabel>
@@ -55,7 +55,7 @@ export default class Login extends React.Component {
                         />
                     </FormGroup>
                     <Button
-                        block
+                        className="login-btn btn btn-primary"
                         bsSize="large"
                         disabled={!this.validateForm()}
                         type="submit">

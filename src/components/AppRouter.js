@@ -1,6 +1,7 @@
+import 'babel-polyfill';
 import React from "react";
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
-import logo from '../images/logo-landing.svg';
+import logo from '../images/logo.svg';
 import Menu from './Menu';
 import Login from './Login';
 import AddEditItems from './AddEditItems';
@@ -27,28 +28,28 @@ export default class AppRouter extends React.Component {
         return (
             <BrowserRouter>
                 <div>
-                    <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo" />
-                        <nav>
-                            <ul>
-                                <li>
-                                    <NavLink activeClassName="selected" to="/">Login</NavLink>
-                                </li>
-
-                                <li>
-                                    <NavLink activeClassName="selected" to="/view/">View Menu</NavLink>
-                                </li>
-
-                                {this.state.email === "admin@admin.admin" ? (
+                    <header className="app-header">
+                        <h1 className="app-logo"> <NavLink to="/view/"><img src={logo} alt="elmenus logo" /></NavLink></h1>
+                        {this.state.email !== "" ? (
+                            <nav>
+                                <ul>
                                     <li>
-                                        <NavLink activeClassName="selected" to="/addEdit/">Edit Menu</NavLink>
+                                        <NavLink activeClassName="selected" to="/view/">View Menu</NavLink>
                                     </li>
-                                ) : null}
-                            </ul>
-                        </nav>
+                                    {this.state.email === "admin@admin.admin" ? (
+                                        <li>
+                                            <NavLink className="pull-right" to="/addEdit/">Edit Menu</NavLink>
+                                        </li>
+                                    ) : null}
+                                </ul>
+                            </nav>
+                        ) : null}
+                        {this.state.email !== "" ? (<NavLink className="pull-right user-data" to="/login/">Logout as {this.state.email}</NavLink>
+                        ) : null}
                     </header>
-                    <div className="Body-container">
+                    <div className="body-container">
                         <Route path="/" exact render={(routeProp) => <Login onUserChange={this.onUserChange}  {...routeProp} />} />
+                        <Route path="/login/" render={(routeProp) => <Login onUserChange={this.onUserChange}  {...routeProp} />} />
                         <Route path="/view/" component={Menu} />
                         <Route path="/addEdit/" component={AddEditItems} />
                     </div>
